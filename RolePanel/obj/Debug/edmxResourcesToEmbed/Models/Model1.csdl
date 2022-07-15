@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="srfModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="rolet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userId" Type="Int32" />
+    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="usert" Relationship="Self.FK__rolet__userId__164452B1" FromRole="rolet" ToRole="usert" />
+  </EntityType>
+  <EntityType Name="student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="usert">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="rolets" Relationship="Self.FK__rolet__userId__164452B1" FromRole="usert" ToRole="rolet" />
+  </EntityType>
+  <Association Name="FK__rolet__userId__164452B1">
+    <End Role="usert" Type="Self.usert" Multiplicity="0..1" />
+    <End Role="rolet" Type="Self.rolet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usert">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="rolet">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="srfEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="rolets" EntityType="Self.rolet" />
+    <EntitySet Name="students" EntityType="Self.student" />
+    <EntitySet Name="userts" EntityType="Self.usert" />
+    <AssociationSet Name="FK__rolet__userId__164452B1" Association="Self.FK__rolet__userId__164452B1">
+      <End Role="usert" EntitySet="userts" />
+      <End Role="rolet" EntitySet="rolets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

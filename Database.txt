@@ -1,0 +1,28 @@
+Create database srf
+use srf
+Create table student(
+Id int primary key identity(1,1) not null,
+Name nvarchar(50),
+Class nvarchar(50)
+
+)
+
+
+Create table usert(
+Id int primary key identity(1,1) not null,
+userName nvarchar(50),
+Pass nvarchar(50)
+
+)
+
+
+Create table rolet(
+Id int primary key identity(1,1) not null,
+userId int foreign key references usert(Id) ,
+role nvarchar(50)
+
+)
+insert into rolet values(2,'Admin');
+select *from student
+select *from usert
+select *from rolet
